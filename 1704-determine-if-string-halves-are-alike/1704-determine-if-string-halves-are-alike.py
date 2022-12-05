@@ -1,27 +1,17 @@
 class Solution:
     def halvesAreAlike(self, s: str) -> bool:
         vowels = ['a','e','i','o','u','A','E','I','O','U']
-        freq = {}
-        freq1= {}
         s1 = s[:len(s)//2]
         s2 = s[len(s)//2:]
+        cnt = 0
+        cnt1 = 0
         for i in s1:
-            if i in freq:
-                if i in vowels:
-                    freq[i]+=1
-            else:
-                if i in vowels:
-                    freq[i] = 1
+            if i in vowels:
+                cnt +=1
+                
         for i in s2:
-            if i in freq1:
-                if i in vowels:
-                    freq1[i]+=1
-            else:
-                if i in vowels:
-                    freq1[i] = 1
-        fval = sum(list(freq.values()))
-        f1val = sum(list(freq1.values()))
+            if i in vowels:
+                cnt1 += 1
         
-        return fval == f1val
-        
-        
+        return cnt == cnt1
+                
