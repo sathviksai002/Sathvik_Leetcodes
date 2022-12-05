@@ -1,17 +1,11 @@
 class Solution:
     def halvesAreAlike(self, s: str) -> bool:
-        vowels = ['a','e','i','o','u','A','E','I','O','U']
-        s1 = s[:len(s)//2]
-        s2 = s[len(s)//2:]
-        cnt = 0
-        cnt1 = 0
-        for i in s1:
-            if i in vowels:
-                cnt +=1
-                
-        for i in s2:
-            if i in vowels:
-                cnt1 += 1
+        c1,c2,n=0,0,len(s)
+        t=set('aieouAEIOU')
+        for i in range(n//2):
+            if s[i] in t: 
+                c1+=1
+            if s[-i-1] in t:
+                c2+=1
+        return c1 == c2
         
-        return cnt == cnt1
-                
