@@ -6,31 +6,36 @@ using namespace std;
 class Solution
 {
 	public:
-	stack<int> stk;
-	vector<bool> visited;
-	void dfs(int i , vector<int> adj[]){
-	    if(visited[i]){
-	        return ;
-	    }
-	    visited[i] = true;
-	    for(auto x : adj[i]){
-	        dfs(x,adj);
-	    }
-	    stk.push(i);
-	}
+
 	
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
-	    visited = vector<bool>(10010,false);
-	   for(int i = 0 ; i < V  ; i++){
-	       dfs(i,adj);
-	   }
-	   vector<int> arr;
-	   while(!stk.empty()){
-	       arr.push_back(stk.top());
-	       stk.pop();
-	   }
-	   return arr;
+	    vector<int> indegree(V,0);
+	    for(int i = 0 ; i < V ; i++){
+	        for(auto it : adj[i]){
+	            indegree[it]++;
+	        }
+	    }
+	    queue<int> q;
+	    for(int i = 0 ; i < V ; i++){
+	        if(indegree[i] == 0){
+	            q.push(i);
+	        }
+	    }
+	    vector<int> arr;
+	    while(!q.empty()){
+	        int node = q.front();
+	        q.pop();
+	        arr.push_back(node);
+	        
+	        for(auto it : adj[node]){
+	            indegree[it]--;
+	            if(indegree[it] == 0){
+	                q.push(it);
+	            }
+	        }
+	    }
+	    return arr;
 	}
 };
 
